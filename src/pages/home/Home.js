@@ -4,6 +4,7 @@ import {Text, StyleSheet, SafeAreaView, View, TextInput, TouchableOpacity, FlatL
 import { Logo } from '../../component/logo';
 import {Ionicons} from '@expo/vector-icons';
 import api from '../../services/api';
+import { FoodList } from '../../component/foodlist';
 
 
 export default function Home(){
@@ -18,7 +19,7 @@ export default function Home(){
         async function fetchApi() {
             const response = await api.get("/foods");
 
-            setFoods(response);
+            setFoods(response.data);
         }
 
         fetchApi();
@@ -47,6 +48,7 @@ export default function Home(){
             <FlatList
                 data={foods}
                 keyExtractor={(item)=>String(item.id)}
+                renderItem={({item})=> <FoodList data={item}/>}
             />
 
         </SafeAreaView>
